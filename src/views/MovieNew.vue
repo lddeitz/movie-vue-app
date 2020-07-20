@@ -1,34 +1,31 @@
-
 <template>
   <div class="movie-new">
-    <h1>{{ message }}</h1>
-    <div>
-      <form v-on:submit.prevent="createMovie()">
-        <h1>New Movie</h1>
-        <!-- <ul>
-          <li class="text-danger" v-for="error in errors">{{ error }}</li>
-        </ul> -->
-        <div class="form-group">
-          <label>Title:</label>
-          <input type="text" class="form-control" v-model="newMovieTitle">
+    <form v-on:submit.prevent="createMovie()">
+      <h1>New Movie</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+       <div class="form-group">
+          <label>Name:</label>
+          <input v-model="newMovieTitle" type="text" class="form-control">
         </div>
         <div class="form-group">
           <label>Year:</label>
-          <input type="text" class="form-control" v-model="newMovieYear">
+          <input v-model="newMovieYear" type="text" class="form-control">
         </div>
         <div class="form-group">
           <label>Plot:</label>
-          <input type="text" class="form-control" v-model="newMoviePlot">
+          <input v-model="newMoviePlot" type="text" class="form-control">
         </div>
         <div class="form-group">
           <label>Director:</label>
-          <input type="text" class="form-control" v-model="newMovieDirector">
+          <input v-model="newMovieDirector" type="text" class="form-control">
         </div>
         <input type="submit" class="btn btn-primary" value="Create">
     </form>
-    </div>
   </div>
 </template>
+
 
 <style>
 </style>
@@ -43,7 +40,8 @@ export default {
       newMovieTitle: "",
       newMovieYear: "",
       newMoviePlot: "",
-      newMovieDirector: ""
+      newMovieDirector: "",
+      errors: []
     };
   },
   created: function() {},
@@ -58,7 +56,9 @@ export default {
       };
       axios.post("/api/movies", params).then(response => {
         // redirect to movies show
-        this.$router.push(`/recipes/${response.data.id}`);
+        this.$router.push(`/movies/${response.data.id}`).catch(error => {
+          this.errors = error.response.data.errors;
+        });
       });
     }
   }

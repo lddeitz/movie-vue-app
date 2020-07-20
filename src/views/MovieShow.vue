@@ -1,4 +1,3 @@
-
 <template>
   <div class="movie-show">
     <p>Title: {{ movie.title }}</p>
@@ -6,7 +5,7 @@
     <p>Plot: {{ movie.plot }}</p>
     <p>Director: {{ movie.director }}</p>
     <br>
-    <router-link :to="`/movies/${movie.id}/edit`">Edit</router-link>
+    <router-link :to="`/movies/${movie.id}/edit`">Edit</router-link><br>
     <button v-on:click="destroyMovie()">Delete</button>
   </div>
 </template>
